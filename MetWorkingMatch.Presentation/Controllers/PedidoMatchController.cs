@@ -9,13 +9,6 @@ namespace MetWorkingMatch.Presentation.Controllers
     [Route("api/v1/[controller]")]
     public class PedidoMatchController : BaseController
     {
-        private readonly ApplicationDbContext _db;
-
-        public PedidoMatchController(ApplicationDbContext db)
-        {
-            this._db = db;
-        }
-
 
         [HttpGet("enviados/{id}")]
         public async Task<IActionResult> GetPedidosEnviados(Guid id)
