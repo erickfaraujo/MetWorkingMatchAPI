@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Solicitacao\**" />
+    <EmbeddedResource Remove="Solicitacao\**" />
+    <None Remove="Solicitacao\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MetWorkingMatch.Domain\MetWorkingMatch.Domain.csproj" />
   </ItemGroup>
 
@@ -17,7 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Solicitacao\" />
 	  <Folder Include="Conexao\" />
 	  <Folder Include="Contracts\" />
 	</ItemGroup>

@@ -6,6 +6,9 @@ using MetWorkingMatch.Application.Pedido.Queries;
 using MetWorkingMatch.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
@@ -21,9 +24,24 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
 
         public async Task<PedidosMatchResponse> Handle(GetPedidosEnviadosByIdQuery request, CancellationToken cancellationToken)
         {
-            var pedido = await _dbContext.PedidosMatch.FindAsync(request.UserId);
+            PedidosMatchResponse pedidosMatchResponse = new PedidosMatchResponse();
+            pedidosMatchResponse.IdUserSolicitante = request.UserId;
+            List<PedidoResponse> pedidosResponse = new List<PedidoResponse>();
 
-            return _mapper.Map<PedidosMatchResponse>(pedido);
+            var pedidos = _dbContext.PedidosMatch.Where(p => p.IdUserSolicitante == request.UserId).ToArray();
+
+            foreach (var p in pedidos)
+            {
+                PedidoResponse pedido = new PedidoResponse();
+                pedido.IdUserAprovador = p.IdUserAprovador;
+                pedido.DataSolicitacao = p.DataSolicitacao;
+
+                pedidosResponse.Add(pedido);
+            }
+
+            pedidosMatchResponse.Pedidos = pedidosResponse;
+
+            return pedidosMatchResponse;
         }
     }
 }

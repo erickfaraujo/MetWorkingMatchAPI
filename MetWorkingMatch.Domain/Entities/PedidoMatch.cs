@@ -11,7 +11,6 @@ namespace MetWorkingMatch.Domain.Entities
         {
             Id = Guid.NewGuid();
         }
-
         public Guid Id { get; set; }
         public Guid IdUserSolicitante { get; set; }
         public Guid IdUserAprovador { get; set; }
