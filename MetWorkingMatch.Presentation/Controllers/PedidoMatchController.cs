@@ -3,6 +3,8 @@ using MetWorkingMatch.Application.Pedido.Queries;
 using System;
 using System.Threading.Tasks;
 using MetWorkingMatch.Infra.Persistence;
+using MetWorkingMatch.Application.Pedido.Commands;
+using MetWorkingMatch.Application.Contracts;
 
 namespace MetWorkingMatch.Presentation.Controllers
 {
@@ -30,12 +32,12 @@ namespace MetWorkingMatch.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePedido()
+        public async Task<IActionResult> CreatePedido([FromBody] CreatePedidoRequest pedidoRequest)
         {
-            var command = "";
-            var result = "";
-
-            return Ok(result);
+            var command = new CreatePedidoCommand(pedidoRequest);
+            var result = await Mediator.Send(command);
+            
+            return Ok();
         }
 
         [HttpPut]

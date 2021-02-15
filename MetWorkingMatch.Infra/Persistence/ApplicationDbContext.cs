@@ -1,7 +1,8 @@
 ﻿using MetWorkingMatch.Domain.Entities;
 using MetWorkingMatch.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MetWorkingMatch.Infra.Persistence
 {
@@ -20,6 +21,11 @@ namespace MetWorkingMatch.Infra.Persistence
             modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 1, DescricaoStatus = "Pendente" });
             modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 2, DescricaoStatus = "Aceito" });
             modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 3, DescricaoStatus = "Recusado" });
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }
