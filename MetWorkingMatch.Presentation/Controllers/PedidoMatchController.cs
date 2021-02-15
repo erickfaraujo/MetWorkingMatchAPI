@@ -23,8 +23,8 @@ namespace MetWorkingMatch.Presentation.Controllers
         [HttpGet("recebidos/{id}")]
         public async Task<IActionResult> GetPedidosRecebidos(Guid id)
         {
-            var query = "";
-            var result = id;
+            var query = new GetPedidosRecebidosByIdQuery(id);
+            var result = await Mediator.Send(query);
 
             return Ok(result);
         }

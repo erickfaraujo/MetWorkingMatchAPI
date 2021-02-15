@@ -8,7 +8,7 @@ namespace MetWorkingMatch.Application.Contracts
 {
     public class PedidosMatchResponse
     {
-        public Guid IdUserSolicitante { get; set; }
+        public Guid IdUser{ get; set; }
         public List<PedidoResponse> Pedidos { get; set; }
     }
 }

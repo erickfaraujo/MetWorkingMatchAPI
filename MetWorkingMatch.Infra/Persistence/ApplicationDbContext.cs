@@ -17,9 +17,9 @@ namespace MetWorkingMatch.Infra.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 1, descricaoStatus = "Pendente" });
-            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 2, descricaoStatus = "Aceito" });
-            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 3, descricaoStatus = "Recusado" });
+            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 1, DescricaoStatus = "Pendente" });
+            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 2, DescricaoStatus = "Aceito" });
+            modelBuilder.Entity<StatusPedido>().HasData(new StatusPedido { Id = 3, DescricaoStatus = "Recusado" });
         }
     }
 }

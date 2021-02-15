@@ -10,11 +10,12 @@ namespace MetWorkingMatch.Domain.Entities
         public PedidoMatch()
         {
             Id = Guid.NewGuid();
+            IdStatusSolicitacao = new StatusPedido();
         }
         public Guid Id { get; set; }
         public Guid IdUserSolicitante { get; set; }
         public Guid IdUserAprovador { get; set; }
-        public StatusPedido idStatusSolicitacao { get; set; }
+        public StatusPedido IdStatusSolicitacao { get; set; }
         public DateTime DataSolicitacao { get; set; }
         public DateTime? DataAceite { get; set; }
 

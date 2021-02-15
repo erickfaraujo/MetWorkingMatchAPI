@@ -10,16 +10,16 @@ using System.Collections.Generic;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
-    public class GetPedidosEnviadosByIdHandler : IRequestHandler<GetPedidosEnviadosByIdQuery, PedidosMatchResponse>
+    public class GetPedidosRecebidosByIdHandler : IRequestHandler<GetPedidosRecebidosByIdQuery, PedidosMatchResponse>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GetPedidosEnviadosByIdHandler(IApplicationDbContext context, IMapper mapper)
+        public GetPedidosRecebidosByIdHandler(IApplicationDbContext context, IMapper mapper)
         {
             _dbContext = context;
             _mapper = mapper;
         }
-        public async Task<PedidosMatchResponse> Handle(GetPedidosEnviadosByIdQuery request, CancellationToken cancellationToken)
+        public async Task<PedidosMatchResponse> Handle(GetPedidosRecebidosByIdQuery request, CancellationToken cancellationToken)
         {
             PedidosMatchResponse pedidosMatchResponse = new PedidosMatchResponse
             {
@@ -27,14 +27,14 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             };
             List<PedidoResponse> pedidosResponse = new List<PedidoResponse>();
 
-            var pedidos = _dbContext.PedidosMatch.Where(p => p.IdUserSolicitante == request.UserId).ToArray();
+            var pedidos = _dbContext.PedidosMatch.Where(p => p.IdUserAprovador == request.UserId).ToArray();
 
             foreach (var p in pedidos)
             { 
                 //if(p.IdStatusSolicitacao.Id == 1)
                 //{
                     PedidoResponse pedido = new PedidoResponse();
-                    pedido.IdUser = p.IdUserAprovador;
+                    pedido.IdUser = p.IdUserSolicitante;
                     pedido.DataSolicitacao = p.DataSolicitacao;
                     pedidosResponse.Add(pedido);
                 //}
@@ -44,5 +44,6 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
 
             return pedidosMatchResponse;
         }
+
     }
 }
