@@ -4,10 +4,6 @@ using MetWorkingMatch.Application.Contracts;
 using MetWorkingMatch.Application.Interfaces;
 using MetWorkingMatch.Application.Pedido.Commands;
 using MetWorkingMatch.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,14 +24,13 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
         {
             var pedido = _mapper.Map<PedidoMatch>(request.PedidoRequest);
             pedido.DataSolicitacao = System.DateTime.Now;
-            //StatusPedido status = new StatusPedido(1);
-            //pedido.IdStatusSolicitacao = status;
+            pedido.IdStatusSolicitacao = await _dbContext.StatusPedido.FindAsync(1);
 
             await _dbContext.PedidosMatch.AddAsync(pedido, cancellationToken);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new PedidoResponse();
+            return _mapper.Map<PedidoResponse>(pedido);
         }
     }
 }

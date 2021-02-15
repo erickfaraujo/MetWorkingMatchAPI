@@ -15,6 +15,7 @@ namespace MetWorkingMatch.Application.Mapping
         {
             CreateMap<PedidoMatch,PedidosMatchResponse>();
             CreateMap<CreatePedidoRequest, PedidoMatch>();
+            CreateMap<PedidoMatch, PedidoResponse>();
         }
 
     }

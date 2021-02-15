@@ -2,7 +2,6 @@
 using MetWorkingMatch.Application.Pedido.Queries;
 using System;
 using System.Threading.Tasks;
-using MetWorkingMatch.Infra.Persistence;
 using MetWorkingMatch.Application.Pedido.Commands;
 using MetWorkingMatch.Application.Contracts;
 
