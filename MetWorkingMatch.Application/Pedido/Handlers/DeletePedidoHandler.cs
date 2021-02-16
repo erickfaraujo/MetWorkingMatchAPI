@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
-    public class DeletePedidoHandler : IRequestHandler<DeletePedidoCommand, PedidoResponse>
+    public class DeletePedidoHandler : IRequestHandler<DeletePedidoCommand, BaseResponse<PedidoResponse>>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -22,18 +22,26 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             _mapper = mapper;
         }
 
-        public async Task<PedidoResponse> Handle(DeletePedidoCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<PedidoResponse>> Handle(DeletePedidoCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse<PedidoResponse>();
             var pedido = _dbContext.PedidosMatch
                                 .Where(p => p.IdUserSolicitante == request.DeleteRequest.IdUserSolicitante)
-                                .Where(p => p.IdUserAprovador == request.DeleteRequest.IdUserAprovador)
-                                .ToList();
-            
-            _dbContext.PedidosMatch.Remove(pedido[0]);
+                                .Where(p => p.IdUserAprovador == request.DeleteRequest.IdUserAprovador);
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            if (!pedido.Any())
+            {
+                response.SetValidationErrors(new[] { "Pedido de Match não encontrado" });
+            }
+            else
+            {
+                var pedidoLista = pedido.ToList();
+                _dbContext.PedidosMatch.Remove(pedidoLista[0]);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+                response.SetIsOk(null);
+            }
 
-            return _mapper.Map<PedidoResponse>(pedido);
+            return response;
         }
     }
 }

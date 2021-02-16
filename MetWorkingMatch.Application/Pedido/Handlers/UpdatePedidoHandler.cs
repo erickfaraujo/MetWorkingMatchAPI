@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
-    public class UpdatePedidoHandler : IRequestHandler<UpdatePedidoCommand, PedidoResponse>
+    public class UpdatePedidoHandler : IRequestHandler<UpdatePedidoCommand, BaseResponse<PedidoResponse>>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -22,29 +22,37 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             _mapper = mapper;
         }
 
-        public async Task<PedidoResponse> Handle(UpdatePedidoCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<PedidoResponse>> Handle(UpdatePedidoCommand request, CancellationToken cancellationToken)
         {
-            var pedidoRequest = _mapper.Map<PedidoMatch>(request.UpdateRequest);
+            var response = new BaseResponse<PedidoResponse>();
 
             var pedido = _dbContext.PedidosMatch
                             .Include(p => p.IdStatusSolicitacao)
                             .Where(p => p.IdUserSolicitante == request.UpdateRequest.IdUserSolicitante)
-                            .Where(p => p.IdUserAprovador == request.UpdateRequest.IdUserAprovador)
-                            .ToList();
+                            .Where(p => p.IdUserAprovador == request.UpdateRequest.IdUserAprovador);
 
-            if (request.UpdateRequest.Action == 2)
+            if (!pedido.Any())
             {
-                pedido[0].IdStatusSolicitacao = await _dbContext.StatusPedido.FindAsync(2);
-                
+                response.SetValidationErrors(new[] { "Pedido de Match não encontrado" });
             }
-            else if (request.UpdateRequest.Action == 3)
+            else
             {
-                pedido[0].IdStatusSolicitacao = await _dbContext.StatusPedido.FindAsync(3);
+                var pedidoLista = pedido.ToList();
+
+                if(!pedidoLista[0].IdStatusSolicitacao.Id.Equals(1))
+                {
+                    response.SetValidationErrors(new[] { "Pedido de Match já respondido" });
+                } else
+                {
+                    pedidoLista[0].IdStatusSolicitacao = await _dbContext.StatusPedido.FindAsync((request.UpdateRequest.Action));
+                    pedidoLista[0].DataAceite = System.DateTime.Now;
+
+                    await _dbContext.SaveChangesAsync(cancellationToken);
+                    response.SetIsOk(null);
+                }                
             }
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
-
-            return _mapper.Map<PedidoResponse>(pedidoRequest);
+            return response;
         }
     }
 }

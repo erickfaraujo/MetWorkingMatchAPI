@@ -4,7 +4,7 @@ using System;
 
 namespace MetWorkingMatch.Application.Pedido.Queries
 {
-    public class GetPedidosRecebidosByIdQuery : IRequest<PedidosMatchResponse>
+    public class GetPedidosRecebidosByIdQuery : IRequest<BaseResponse<PedidosMatchResponse>>
     {
         public Guid UserId { get; }
 

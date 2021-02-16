@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
-    public class GetPedidosRecebidosByIdHandler : IRequestHandler<GetPedidosRecebidosByIdQuery, PedidosMatchResponse>
+    public class GetPedidosRecebidosByIdHandler : IRequestHandler<GetPedidosRecebidosByIdQuery, BaseResponse<PedidosMatchResponse>>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -20,33 +20,51 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             _dbContext = context;
             _mapper = mapper;
         }
-        public async Task<PedidosMatchResponse> Handle(GetPedidosRecebidosByIdQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<PedidosMatchResponse>> Handle(GetPedidosRecebidosByIdQuery request, CancellationToken cancellationToken)
         {
+            var response = new BaseResponse<PedidosMatchResponse>();
+
             PedidosMatchResponse pedidosMatchResponse = new PedidosMatchResponse
             {
                 IdUser = request.UserId
             };
+
             List<PedidoResponse> pedidosResponse = new List<PedidoResponse>();
 
             var pedidos = _dbContext.PedidosMatch
                             .Include(p => p.IdStatusSolicitacao)
-                            .Where(p => p.IdUserAprovador == request.UserId)
-                            .ToArray();
+                            .Where(p => p.IdUserAprovador == request.UserId);
 
-            foreach (var p in pedidos)
-            { 
-                if(p.IdStatusSolicitacao.Id == 1)
+            if (!pedidos.Any())
+            {
+                response.SetValidationErrors(new[] { "Não existem pedidos pendentes para o usuário informado" });
+            }
+            else
+            {
+                var pedidosArray = pedidos.ToArray();
+                foreach (var p in pedidos)
                 {
-                    PedidoResponse pedido = new PedidoResponse();
-                    pedido.IdUser = p.IdUserSolicitante;
-                    pedido.DataSolicitacao = p.DataSolicitacao;
-                    pedidosResponse.Add(pedido);
+                    if (p.IdStatusSolicitacao.Id == 1)
+                    {
+                        PedidoResponse pedido = new PedidoResponse();
+                        pedido.IdUser = p.IdUserSolicitante;
+                        pedido.DataSolicitacao = p.DataSolicitacao;
+                        pedidosResponse.Add(pedido);
+                    }
+                }
+
+                if(!pedidosResponse.Any())
+                {
+                    response.SetValidationErrors(new[] { "Não existem pedidos pendentes para o usuário informado" });
+                }
+                else
+                {
+                    pedidosMatchResponse.Pedidos = pedidosResponse;
+                    response.SetIsOk(pedidosMatchResponse);
                 }
             }
 
-            pedidosMatchResponse.Pedidos = pedidosResponse;
-
-            return pedidosMatchResponse;
+            return response;
         }
 
     }

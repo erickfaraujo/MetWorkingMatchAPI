@@ -35,7 +35,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new CreatePedidoCommand(createPedido);
             var result = await Mediator.Send(command);
             
-            return Ok();
+            return Ok(result);
         }
 
         [HttpPut("/aceitar")]
@@ -44,7 +44,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new UpdatePedidoCommand(updatePedido, 2);
             var result = await Mediator.Send(command);
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpPut("/rejeitar")]
@@ -53,16 +53,16 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new UpdatePedidoCommand(updatePedido, 3);
             var result = await Mediator.Send(command);
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeletePedido(DeletePedidoRequest deletePedido)
         {
             var command = new DeletePedidoCommand(deletePedido);
-            var result = Mediator.Send(command);
+            var result = await Mediator.Send(command);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

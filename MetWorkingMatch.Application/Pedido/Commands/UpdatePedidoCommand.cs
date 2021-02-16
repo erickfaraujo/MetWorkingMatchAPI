@@ -3,7 +3,7 @@ using MetWorkingMatch.Application.Contracts;
 
 namespace MetWorkingMatch.Application.Pedido.Commands
 {
-    public class UpdatePedidoCommand : IRequest<PedidoResponse>
+    public class UpdatePedidoCommand : IRequest<BaseResponse<PedidoResponse>>
     {
         public UpdatePedidoRequest UpdateRequest { get; }
 
