@@ -19,7 +19,6 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             _dbContext = dbContext;
             _mapper = mapper;
         }
-
         public async Task<PedidoResponse> Handle(CreatePedidoCommand request, CancellationToken cancellationToken)
         {
             var pedido = _mapper.Map<PedidoMatch>(request.PedidoRequest);

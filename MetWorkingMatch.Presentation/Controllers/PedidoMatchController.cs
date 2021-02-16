@@ -20,7 +20,6 @@ namespace MetWorkingMatch.Presentation.Controllers
             return Ok(result);
         }
 
-
         [HttpGet("recebidos/{id}")]
         public async Task<IActionResult> GetPedidosRecebidos(Guid id)
         {
@@ -31,30 +30,39 @@ namespace MetWorkingMatch.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePedido([FromBody] CreatePedidoRequest pedidoRequest)
+        public async Task<IActionResult> CreatePedido([FromBody] CreatePedidoRequest createPedido)
         {
-            var command = new CreatePedidoCommand(pedidoRequest);
+            var command = new CreatePedidoCommand(createPedido);
             var result = await Mediator.Send(command);
             
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdatePedido(string pedido, int action)
+        [HttpPut("/aceitar")]
+        public async Task<IActionResult> AceitaPedido(UpdatePedidoRequest updatePedido)
         {
-            var command = "";
-            var result = "";
+            var command = new UpdatePedidoCommand(updatePedido, 2);
+            var result = await Mediator.Send(command);
 
-            return Ok(result);
+            return Ok();
+        }
+
+        [HttpPut("/rejeitar")]
+        public async Task<IActionResult> RejeitaPedido(UpdatePedidoRequest updatePedido)
+        {
+            var command = new UpdatePedidoCommand(updatePedido, 3);
+            var result = await Mediator.Send(command);
+
+            return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeletePedido()
+        public async Task<IActionResult> DeletePedido(DeletePedidoRequest deletePedido)
         {
-            var command = "";
-            var result = "";
+            var command = new DeletePedidoCommand(deletePedido);
+            var result = Mediator.Send(command);
 
-            return Ok(result);
+            return Ok();
         }
     }
 }

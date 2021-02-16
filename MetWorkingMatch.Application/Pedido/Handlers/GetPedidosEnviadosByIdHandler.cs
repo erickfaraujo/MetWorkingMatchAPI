@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
@@ -27,17 +28,20 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             };
             List<PedidoResponse> pedidosResponse = new List<PedidoResponse>();
 
-            var pedidos = _dbContext.PedidosMatch.Where(p => p.IdUserSolicitante == request.UserId).ToArray();
+            var pedidos = _dbContext.PedidosMatch
+                            .Include(p => p.IdStatusSolicitacao)
+                            .Where(p => p.IdUserSolicitante == request.UserId)
+                            .ToArray();
 
             foreach (var p in pedidos)
-            { 
-                //if(p.IdStatusSolicitacao.Id == 1)
-                //{
+            {
+                if (p.IdStatusSolicitacao.Id == 1)
+                {
                     PedidoResponse pedido = new PedidoResponse();
                     pedido.IdUser = p.IdUserAprovador;
                     pedido.DataSolicitacao = p.DataSolicitacao;
                     pedidosResponse.Add(pedido);
-                //}
+                }
             }
 
             pedidosMatchResponse.Pedidos = pedidosResponse;

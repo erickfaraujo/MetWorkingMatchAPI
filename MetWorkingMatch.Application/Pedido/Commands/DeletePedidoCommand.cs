@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using MetWorkingMatch.Application.Contracts;
 
 namespace MetWorkingMatch.Application.Pedido.Commands
 {
-    public class DeletePedidoCommand
+    public class DeletePedidoCommand : IRequest<PedidoResponse>
     {
+        public DeletePedidoRequest DeleteRequest { get; }
+
+        public DeletePedidoCommand(DeletePedidoRequest deleteRequest)
+        {
+            this.DeleteRequest = deleteRequest;
+        }
     }
 }

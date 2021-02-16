@@ -14,7 +14,7 @@ namespace MetWorkingMatch.Domain.Entities
         public Guid Id { get; set; }
         public Guid IdUserSolicitante { get; set; }
         public Guid IdUserAprovador { get; set; }
-        public StatusPedido IdStatusSolicitacao { get; set; }
+        public virtual StatusPedido IdStatusSolicitacao { get; set; }
         public DateTime DataSolicitacao { get; set; }
         public DateTime? DataAceite { get; set; }
 

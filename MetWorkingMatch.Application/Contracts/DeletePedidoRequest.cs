@@ -3,7 +3,7 @@
 
 namespace MetWorkingMatch.Application.Contracts
 {
-    public class CreatePedidoRequest
+    public class DeletePedidoRequest
     {
         public Guid IdUserSolicitante { get; set; }
         public Guid IdUserAprovador { get; set; }

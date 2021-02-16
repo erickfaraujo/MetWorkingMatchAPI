@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using MetWorkingMatch.Application.Contracts;
 
 namespace MetWorkingMatch.Application.Pedido.Commands
 {
-    public class UpdatePedidoCommand
+    public class UpdatePedidoCommand : IRequest<PedidoResponse>
     {
+        public UpdatePedidoRequest UpdateRequest { get; }
+
+        public UpdatePedidoCommand(UpdatePedidoRequest updateRequest, int action)
+        {
+            this.UpdateRequest = updateRequest;
+            this.UpdateRequest.Action = action;
+        }
     }
 }

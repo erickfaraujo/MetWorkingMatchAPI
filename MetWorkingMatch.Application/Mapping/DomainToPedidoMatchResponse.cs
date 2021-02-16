@@ -14,8 +14,10 @@ namespace MetWorkingMatch.Application.Mapping
         public DomainToPedidoMatchResponse()
         {
             CreateMap<PedidoMatch,PedidosMatchResponse>();
-            CreateMap<CreatePedidoRequest, PedidoMatch>();
             CreateMap<PedidoMatch, PedidoResponse>();
+            CreateMap<CreatePedidoRequest, PedidoMatch>();
+            CreateMap<UpdatePedidoRequest, PedidoMatch>();
+            CreateMap<UpdatePedidoRequest, PedidoResponse>();
         }
 
     }
