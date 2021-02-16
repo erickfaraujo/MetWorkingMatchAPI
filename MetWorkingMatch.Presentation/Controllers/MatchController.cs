@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MetWorkingMatch.Application.Conexao.Commands;
+using MetWorkingMatch.Application.Conexao.Queries;
+using MetWorkingMatch.Application.Contracts.Match;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -10,29 +13,19 @@ namespace MetWorkingMatch.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllMatches(Guid id)
         {
-            var query = ""; // colocar a chamada do GetMatchByUserIdQuery
-            var result = ""; // colocar a chamada para o Mediator.Send(query)
+            var query = new Application.Conexao.Queries.DeleteMatchRequest(id);
+            var result = await Mediator.Send(query);
 
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create ([FromBody] Guid idUser, Guid idAmigo) // TODO: Mudar o obj de entrada para um contrato
+        [HttpDelete]
+        public async Task<IActionResult> Delete (Application.Contracts.Match.DeleteMatchRequest deleteMatchRequest)
         {
-            var command = ""; // TODO: colocar a chamada do CreateMatchCommand
-            var result = ""; // TODO: colocar a chamada para o Mediator.Send(command)
+            var command = new DeleteMatchCommand(deleteMatchRequest);
+            var result = await Mediator.Send(command);
 
-            return Created("", result);
+            return Ok(result);
         }
-
-        //[HttpDelete("{idUser}")]
-        //public async Task<IActionResult> Delete (Guid idUser, [FromBody] Guid idAmigo)
-        //{
-        //    var command = ""; // TODO: colocar a chamada do DeleteMatchCommand
-        //    var result = ""; // TODO: colocar a chamada para o Mediator.Send(command)
-
-        //    return Ok(result);
-        //}
-
     }
 }
