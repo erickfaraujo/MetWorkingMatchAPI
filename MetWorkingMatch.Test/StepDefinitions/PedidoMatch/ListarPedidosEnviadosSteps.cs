@@ -31,19 +31,30 @@ namespace MetWorkingMatch.Test.StepDefinitions
 
             var response = restClient.Execute(request);
 
-            _scenarioContext["response"] = response;
+            var content = response.Content.ToString();
+
+            dynamic jsonResponse = JsonConvert.DeserializeObject<BaseResponse<PedidosMatchResponse>>(content);
+
+            _scenarioContext["response"] = jsonResponse;
+
+        }
+
+        [Then(@"o retorno deve ser (.*)")]
+        public void EntaoORetornoDeveSer(bool isOk)
+        {
+            BaseResponse<PedidosMatchResponse> finalResponse;
+            finalResponse = (BaseResponse<PedidosMatchResponse>)_scenarioContext["response"];
+
+            Assert.AreEqual(isOk, finalResponse.IsOk);
         }
 
         [Then(@"a lista de pedidos enviados deverá ser exibida (.*)")]
         public void EntaoAListaDePedidosPendentesDeveraSerExibida(Guid IdUserAmigo)
         {
-            var response = (IRestResponse)_scenarioContext["response"];
-            var content = response.Content.ToString();
 
-            dynamic jsonResponse = JsonConvert.DeserializeObject<BaseResponse<PedidosMatchResponse>>(content);
+            BaseResponse<PedidosMatchResponse> finalResponse;
 
-            BaseResponse<PedidosMatchResponse> finalResponse = new BaseResponse<PedidosMatchResponse>();
-            finalResponse = jsonResponse;
+            finalResponse = (BaseResponse<PedidosMatchResponse>)_scenarioContext["response"];
 
             Assert.AreEqual(IdUserAmigo, finalResponse.Data.Pedidos[0].IdUser);
         }

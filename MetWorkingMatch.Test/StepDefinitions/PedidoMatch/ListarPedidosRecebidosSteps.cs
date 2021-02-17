@@ -5,47 +5,49 @@ using RestSharp;
 using System;
 using TechTalk.SpecFlow;
 
-namespace MetWorkingMatch.Test.StepDefinitions
+namespace MetWorkingMatch.Test.StepDefinitions.PedidoMatch
 {
     [Binding]
     public class ListarPedidosRecebidosSteps
     {
         private readonly ScenarioContext _scenarioContext;
-        private readonly string _urlGetEnviados;
+        private readonly string _urlGetRecebidos;
 
         public ListarPedidosRecebidosSteps(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
-            this._urlGetEnviados = "https://localhost:5001/api/v1/PedidoMatch/recebidos/";
+            this._urlGetRecebidos = "https://localhost:5001/api/v1/PedidoMatch/recebidos/";
         }
 
         [When(@"o usuário (.*) quiser ver a lista de pedidos recebidos")]
-        public void QuandoOUsuarioQuiserVerAListaDePedidosRecebidos(Guid IdUser)
+        public void QuandoOUsuarioQuiserVerAListaDePedidosEnviadosPendentes(Guid IdUser)
         {
             var request = new RestRequest();
             request.Method = Method.GET;
 
             request.Parameters.Clear();
 
-            var restClient = new RestClient(_urlGetEnviados + IdUser);
+            var restClient = new RestClient(_urlGetRecebidos + IdUser);
 
             var response = restClient.Execute(request);
 
-            _scenarioContext["response"] = response;
-        }
-
-        [Then(@"a lista de pedidos pendentes deverá ser exibida (.*)")]
-        public void EntaoAListaDePedidosPendentesDeveraSerExibida(Guid IdUserSolicitante)
-        {
-            var response = (IRestResponse)_scenarioContext["response"];
             var content = response.Content.ToString();
 
             dynamic jsonResponse = JsonConvert.DeserializeObject<BaseResponse<PedidosMatchResponse>>(content);
 
-            BaseResponse<PedidosMatchResponse> finalResponse = new BaseResponse<PedidosMatchResponse>();
-            finalResponse = jsonResponse;
+            _scenarioContext["response"] = jsonResponse;
 
-            Assert.AreEqual(IdUserSolicitante, finalResponse.Data.Pedidos[0].IdUser);
+        }
+
+        [Then(@"a lista de pedidos recebidos deverá ser exibida (.*)")]
+        public void EntaoAListaDePedidosRecebidosDeveraSerExibida(Guid IdUser)
+        {
+            BaseResponse<PedidosMatchResponse> finalResponse;
+
+            finalResponse = (BaseResponse<PedidosMatchResponse>)_scenarioContext["response"];
+
+            Assert.AreEqual(IdUser, finalResponse.Data.Pedidos[0].IdUser);
         }
     }
+
 }

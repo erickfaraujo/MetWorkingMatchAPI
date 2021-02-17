@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MetWorkingMatch.Test.Features
+namespace MetWorkingMatch.Test.Features.PedidoMatch
 {
     using TechTalk.SpecFlow;
     using System;
@@ -35,7 +35,7 @@ namespace MetWorkingMatch.Test.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Listar pedidos enviados", "\tLista os pedidos que um usuário solicitou e estão pendentes de aprovação", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features/PedidoMatch", "Listar pedidos enviados", "\tLista os pedidos que um usuário solicitou e estão pendentes de aprovação", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,23 +74,17 @@ namespace MetWorkingMatch.Test.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Listar pedidos enviados")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        [NUnit.Framework.TestCaseAttribute("2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", "d3d4b0f4-ee3b-4506-943c-62c88d50e874", null)]
-        public virtual void ListarPedidosEnviados(string idUser, string retorno, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário com pedido enviados pendentes")]
+        [NUnit.Framework.TestCaseAttribute("2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", "True", "d3d4b0f4-ee3b-4506-943c-62c88d50e874", null)]
+        public virtual void UsuarioComPedidoEnviadosPendentes(string idUser, string isOK, string retorno, string[] exampleTags)
         {
-            string[] @__tags = new string[] {
-                    "mytag"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            string[] tagsOfScenario = @__tags;
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("isOK", isOK);
             argumentsOfScenario.Add("retorno", retorno);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listar pedidos enviados", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário com pedido enviados pendentes", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -110,11 +104,54 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 6
  testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos enviados pendentes", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 9
- testRunner.Then(string.Format("a lista de pedidos enviados deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line 7
+ testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line hidden
+#line 8
+ testRunner.And(string.Format("a lista de pedidos enviados deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Usuário sem pedido enviados pendentes")]
+        [NUnit.Framework.TestCaseAttribute("d3d4b0f4-ee3b-4506-943c-62c88d50e874", "False", null)]
+        public virtual void UsuarioSemPedidoEnviadosPendentes(string idUser, string isOK, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("isOK", isOK);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário sem pedido enviados pendentes", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 14
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 15
+ testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos enviados pendentes", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 16
+ testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             }
             this.ScenarioCleanup();
