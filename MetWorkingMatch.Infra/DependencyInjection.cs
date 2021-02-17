@@ -12,8 +12,7 @@ namespace MetWorkingMatch.Infra
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseMySql(configuration.GetConnectionString("DefaultConnection"),
-                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
-                           .EnableSensitiveDataLogging());
+                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
