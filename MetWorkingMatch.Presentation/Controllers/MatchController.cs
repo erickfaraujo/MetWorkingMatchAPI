@@ -13,7 +13,16 @@ namespace MetWorkingMatch.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllMatches(Guid id)
         {
-            var query = new Application.Conexao.Queries.DeleteMatchRequest(id);
+            var query = new GetAllMatchesQuery(id);
+            var result = await Mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpGet("isMatch/{id}/{idAmigo}")]
+        public async Task<IActionResult> IsMatch(Guid id, Guid idAmigo)
+        {
+            var query = new IsMatchQuery(id, idAmigo);
             var result = await Mediator.Send(query);
 
             return Ok(result);

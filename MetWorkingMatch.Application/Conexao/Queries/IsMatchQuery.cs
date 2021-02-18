@@ -5,13 +5,15 @@ using System;
 
 namespace MetWorkingMatch.Application.Conexao.Queries
 {
-    public class GetAllMatchesQuery : IRequest<BaseResponse<MatchesAtivosResponse>>
+    public class IsMatchQuery : IRequest<BaseResponse<IsMatchResponse>>
     {
         public Guid UserId;
+        public Guid IdAmigo;
 
-        public GetAllMatchesQuery(Guid UserId)
+        public IsMatchQuery(Guid UserId, Guid IdAmigo)
         {
             this.UserId = UserId;
+            this.IdAmigo = IdAmigo;
         }
     }
 }

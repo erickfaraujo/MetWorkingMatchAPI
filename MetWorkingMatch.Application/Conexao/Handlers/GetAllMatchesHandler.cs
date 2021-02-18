@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace MetWorkingMatch.Application.Conexao.Handlers
 {
-    public class GetAllMatcesHandler : IRequestHandler<Queries.DeleteMatchRequest, BaseResponse<MatchesAtivosResponse>>
+    public class GetAllMatchesHandler : IRequestHandler<GetAllMatchesQuery, BaseResponse<MatchesAtivosResponse>>
     {
 
         private readonly IApplicationDbContext _dbContext;
 
-        public GetAllMatcesHandler(IApplicationDbContext dbContext)
+        public GetAllMatchesHandler(IApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
-        public async Task<BaseResponse<MatchesAtivosResponse>> Handle(Queries.DeleteMatchRequest request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<MatchesAtivosResponse>> Handle(GetAllMatchesQuery request, CancellationToken cancellationToken)
         {
             var response = new BaseResponse<MatchesAtivosResponse>();
             MatchesAtivosResponse matchesAtivosResponse = new MatchesAtivosResponse
