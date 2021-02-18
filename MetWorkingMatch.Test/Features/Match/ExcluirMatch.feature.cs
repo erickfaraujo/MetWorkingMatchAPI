@@ -20,22 +20,22 @@ namespace MetWorkingMatch.Test.Features.Match
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Listar matches efetivados")]
-    public partial class ListarMatchesEfetivadosFeature
+    [NUnit.Framework.DescriptionAttribute("Excluir Match")]
+    public partial class ExcluirMatchFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "ListarMatches.feature"
+#line 1 "ExcluirMatch.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features/Match", "Listar matches efetivados", "\tLista todos os matches de um usuário", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features/Match", "Excluir Match", "\tExclui uma conexão (match) entre usuários", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,16 +74,16 @@ namespace MetWorkingMatch.Test.Features.Match
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário com matches efetivados anteriormente")]
-        [NUnit.Framework.TestCaseAttribute("edaff838-1b0e-475c-88a9-7b127ab7c6ff", "True", "a6c907f1-f704-4b34-beca-60c8195cce10", null)]
-        public virtual void UsuarioComMatchesEfetivadosAnteriormente(string idUser, string isOK, string retorno, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário exclui uma conexão")]
+        [NUnit.Framework.TestCaseAttribute("11ff6448-aeb9-4fd8-aa3f-dda5a3e385ae", "492bb22d-a131-4ee4-85df-5bfe2287a97f", "True", null)]
+        public virtual void UsuarioExcluiUmaConexao(string idUser, string idAmigo, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("IdUser", idUser);
+            argumentsOfScenario.Add("IdAmigo", idAmigo);
             argumentsOfScenario.Add("isOK", isOK);
-            argumentsOfScenario.Add("retorno", retorno);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário com matches efetivados anteriormente", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário exclui uma conexão", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -105,29 +105,30 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de matches efetivados", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.Given(string.Format("que o usuário {0} possua uma conexão com outro usuário {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line hidden
 #line 6
- testRunner.Then(string.Format("o retorno de matches deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+ testRunner.When(string.Format("o usuário {0} quiser excluir a conexão {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 7
- testRunner.And(string.Format("a lista de matches deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.Then(string.Format("o retorno da exclusão deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário sem matches efetivados anteriormente")]
-        [NUnit.Framework.TestCaseAttribute("b0438f34-2f50-4c9d-a440-c45a8b9c45fe", "False", null)]
-        public virtual void UsuarioSemMatchesEfetivadosAnteriormente(string idUser, string isOK, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário tenta excluir uma conexão que não existe")]
+        [NUnit.Framework.TestCaseAttribute("11ff6448-aeb9-4fd8-aa3f-dda5a3e385ae", "492bb22d-a131-4ee4-85df-5bfe2287a97f", "False", null)]
+        public virtual void UsuarioTentaExcluirUmaConexaoQueNaoExiste(string idUser, string idAmigo, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("IdUser", idUser);
+            argumentsOfScenario.Add("IdAmigo", idAmigo);
             argumentsOfScenario.Add("isOK", isOK);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário sem matches efetivados anteriormente", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 12
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário tenta excluir uma conexão que não existe", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -147,11 +148,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 13
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de matches efetivados", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
-#line hidden
 #line 14
- testRunner.Then(string.Format("o retorno de matches deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+ testRunner.Given(string.Format("que o usuário {0} não possua uma conexão com o outro usuário informado {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line hidden
+#line 15
+ testRunner.When(string.Format("o usuário {0} quiser excluir a conexão {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 16
+ testRunner.Then(string.Format("o retorno da exclusão deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
             }
             this.ScenarioCleanup();

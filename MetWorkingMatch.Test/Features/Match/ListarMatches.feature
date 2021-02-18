@@ -1,5 +1,4 @@
-﻿#language: pt-br
-Funcionalidade: Listar matches efetivados
+﻿Funcionalidade: Listar matches efetivados
 	Lista todos os matches de um usuário
 
 Cenario: Usuário com matches efetivados anteriormente
