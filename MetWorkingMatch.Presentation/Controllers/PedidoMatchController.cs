@@ -38,7 +38,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/aceitar")]
+        [HttpPut("aceitar")]
         public async Task<IActionResult> AceitaPedido(UpdatePedidoRequest updatePedido)
         {
             var command = new UpdatePedidoCommand(updatePedido, 2);
@@ -47,7 +47,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/rejeitar")]
+        [HttpPut("rejeitar")]
         public async Task<IActionResult> RejeitaPedido(UpdatePedidoRequest updatePedido)
         {
             var command = new UpdatePedidoCommand(updatePedido, 3);
