@@ -16,7 +16,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var query = new GetAllMatchesQuery(id);
             var result = await Mediator.Send(query);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpGet("isMatch/{id}/{idAmigo}")]
@@ -25,7 +25,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var query = new IsMatchQuery(id, idAmigo);
             var result = await Mediator.Send(query);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpDelete]
@@ -34,7 +34,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new DeleteMatchCommand(deleteMatchRequest);
             var result = await Mediator.Send(command);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var query = new GetPedidosEnviadosByIdQuery(id);
             var result = await Mediator.Send(query);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpGet("recebidos/{id}")]
@@ -26,7 +26,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var query = new GetPedidosRecebidosByIdQuery(id);
             var result = await Mediator.Send(query);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpPost]
@@ -34,8 +34,8 @@ namespace MetWorkingMatch.Presentation.Controllers
         {
             var command = new CreatePedidoCommand(createPedido);
             var result = await Mediator.Send(command);
-            
-            return Ok(result);
+
+            return await ResponseBase(result);
         }
 
         [HttpPut("aceitar")]
@@ -44,7 +44,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new UpdatePedidoCommand(updatePedido, 2);
             var result = await Mediator.Send(command);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpPut("rejeitar")]
@@ -53,7 +53,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new UpdatePedidoCommand(updatePedido, 3);
             var result = await Mediator.Send(command);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
 
         [HttpDelete]
@@ -62,7 +62,7 @@ namespace MetWorkingMatch.Presentation.Controllers
             var command = new DeletePedidoCommand(deletePedido);
             var result = await Mediator.Send(command);
 
-            return Ok(result);
+            return await ResponseBase(result);
         }
     }
 }
