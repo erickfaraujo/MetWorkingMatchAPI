@@ -30,16 +30,19 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
 
             var PedidoPendente = _dbContext.PedidosMatch
                                     .Where(p => p.IdUserAprovador == request.PedidoRequest.IdUserAprovador)
-                                    .Where(p => p.IdUserSolicitante == request.PedidoRequest.IdUserSolicitante);
+                                    .Where(p => p.IdUserSolicitante == request.PedidoRequest.IdUserSolicitante)
+                                    .Where(p => p.IdStatusSolicitacao.Id == 1);
 
             if (PedidoPendente.Any())
             {
                 response.SetValidationErrors(new[] { "Já existe uma conexão ou pedido de match pendente para esse usuários" });
             }
 
-            await _dbContext.PedidosMatch.AddAsync(pedido, cancellationToken);
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            else
+            {
+                await _dbContext.PedidosMatch.AddAsync(pedido, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
 
             response.SetIsOk(null);
             return response;
