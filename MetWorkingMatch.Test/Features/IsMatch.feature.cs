@@ -28,7 +28,7 @@ namespace MetWorkingMatch.Test.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "7_IsMatch.feature"
+#line 1 "IsMatch.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]

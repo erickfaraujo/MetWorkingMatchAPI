@@ -28,7 +28,7 @@ namespace MetWorkingMatch.Test.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "5_RejeitarMatch.feature"
+#line 1 "RejeitarMatch.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
