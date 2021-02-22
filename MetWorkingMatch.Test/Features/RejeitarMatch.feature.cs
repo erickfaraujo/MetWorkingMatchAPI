@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MetWorkingMatch.Test.Features.PedidoMatch
+namespace MetWorkingMatch.Test.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,22 +20,22 @@ namespace MetWorkingMatch.Test.Features.PedidoMatch
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Listar pedidos recebidos")]
-    public partial class ListarPedidosRecebidosFeature
+    [NUnit.Framework.DescriptionAttribute("Rejeitar pedido de match")]
+    public partial class RejeitarPedidoDeMatchFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "ListarPedidosRecebidos.feature"
+#line 1 "5_RejeitarMatch.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features/PedidoMatch", "Listar pedidos recebidos", "\tLista os pedidos que um usuário recebeu e estão pendentes de aprovação", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features", "Rejeitar pedido de match", "\tPermite que um usuário possa rejeitar um pedido de match recebido", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,17 +74,17 @@ namespace MetWorkingMatch.Test.Features.PedidoMatch
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário com pedido recebidos")]
-        [NUnit.Framework.TestCaseAttribute("d3d4b0f4-ee3b-4506-943c-62c88d50e874", "True", "2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", null)]
-        public virtual void UsuarioComPedidoRecebidos(string idUser, string isOK, string retorno, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário rejeita um pedido de match")]
+        [NUnit.Framework.TestCaseAttribute("de12b17f-e9a7-48b2-b910-c92751b8b0c4", "True", "True", null)]
+        public virtual void UsuarioRejeitaUmPedidoDeMatch(string idUser, string possui, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("IdUser", idUser);
+            argumentsOfScenario.Add("possui", possui);
             argumentsOfScenario.Add("isOK", isOK);
-            argumentsOfScenario.Add("retorno", retorno);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário com pedido recebidos", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 5
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário rejeita um pedido de match", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -104,30 +104,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 5
+ testRunner.Given(string.Format("que o usuário {0} possua {1} um pedido de match recebido", idUser, possui), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line hidden
 #line 6
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos recebidos", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.When(string.Format("o usuário {0} rejeitar o pedido de outro usuário", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 7
- testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
-#line hidden
-#line 8
- testRunner.And(string.Format("a lista de pedidos recebidos deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.Then(string.Format("o sistema deve retornar o status {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário sem pedido recebidos")]
-        [NUnit.Framework.TestCaseAttribute("2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", "False", null)]
-        public virtual void UsuarioSemPedidoRecebidos(string idUser, string isOK, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário tenta rejeitar um pedido de match que não está pendente")]
+        [NUnit.Framework.TestCaseAttribute("de12b17f-e9a7-48b2-b910-c92751b8b0c4", "False", "False", null)]
+        public virtual void UsuarioTentaRejeitarUmPedidoDeMatchQueNaoEstaPendente(string idUser, string possui, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("idUser", idUser);
+            argumentsOfScenario.Add("IdUser", idUser);
+            argumentsOfScenario.Add("possui", possui);
             argumentsOfScenario.Add("isOK", isOK);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário sem pedido recebidos", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 14
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário tenta rejeitar um pedido de match que não está pendente", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -147,11 +148,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 14
+ testRunner.Given(string.Format("que o usuário {0} possua {1} um pedido de match recebido", idUser, possui), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line hidden
 #line 15
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos recebidos", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.When(string.Format("o usuário {0} quiser rejeitar o pedido que não existe", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 16
- testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+ testRunner.Then(string.Format("o sistema deve retornar o status {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             }
             this.ScenarioCleanup();

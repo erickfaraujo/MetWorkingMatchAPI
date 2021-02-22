@@ -16,7 +16,7 @@ namespace MetWorkingMatch.Test.StepDefinitions
         public ListarPedidosEnviadosSteps(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
-            this._urlGetEnviados = "https://localhost:5001/api/v1/PedidoMatch/enviados/";
+            this._urlGetEnviados = "https://localhost:5003/api/v1/PedidoMatch/enviados/";
         }
 
         [When(@"o usuário (.*) quiser ver a lista de pedidos enviados pendentes")]

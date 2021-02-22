@@ -18,10 +18,10 @@ namespace MetWorkingMatch.Test.StepDefinitions.Match
         public ExcluirMatchSteps(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
-            this._urlMatches = "https://localhost:5001/api/v1/Match";
-            this._urlIsMatch = "https://localhost:5001/api/v1/Match/isMatch/";
+            this._urlMatches = "https://localhost:5003/api/v1/Match";
+            this._urlIsMatch = "https://localhost:5003/api/v1/Match/isMatch/";
         }
-        [Given(@"que o usuário (.*) possua uma conexão com outro usuário (.*)")]
+        [Given(@"que o usuário (.*) possua uma conexão com o (.*)")]
 
         public void DadoQueOUsuarioPossuaUmaConexaoComOutroUsuario(Guid IdUser, Guid IdUserAmigo)
         {
@@ -39,11 +39,11 @@ namespace MetWorkingMatch.Test.StepDefinitions.Match
 
             BaseResponse<IsMatchResponse> IsMatchResponse = jsonResponse;
 
-            Assert.AreEqual(IsMatchResponse.Data.IsMatch, true);
+            Assert.AreEqual(true, IsMatchResponse.Data.IsMatch);
         }
 
-        [Given(@"que o usuário (.*) não possua uma conexão com o outro usuário informado (.*)")]
-        public void DadoQueOUsuarioNaoPossuaUmaConexaoComOOutroUsuarioInformado(Guid IdUser, Guid IdUserAmigo)
+        [Given(@"que o usuário (.*) não possua uma conexão com o usuário(.*)")]
+        public void DadoQueOUsuarioNaoPossuaUmaConexaoComOUsuario(Guid IdUser, Guid IdUserAmigo)
         {
             var request = new RestRequest();
             request.Method = Method.GET;
@@ -59,7 +59,7 @@ namespace MetWorkingMatch.Test.StepDefinitions.Match
 
             BaseResponse<IsMatchResponse> IsMatchResponse = jsonResponse;
 
-            Assert.AreEqual(IsMatchResponse.Data.IsMatch, false);
+            Assert.AreEqual(false, IsMatchResponse.Data.IsMatch);
         }
 
         [When(@"o usuário (.*) quiser excluir a conexão (.*)")]
@@ -83,9 +83,7 @@ namespace MetWorkingMatch.Test.StepDefinitions.Match
         [Then(@"o retorno da exclusão deve ser (.*)")]
         public void EntaoORetornoDaExclusaoDeveSer(bool isOK)
         {
-            BaseResponse<MatchesAtivosResponse> finalResponse;
-
-            var response = (BaseResponse<MatchesAtivosResponse>)_scenarioContext["jsonResponse"];
+            BaseResponse<MatchesAtivosResponse> response = (BaseResponse<MatchesAtivosResponse>)_scenarioContext["jsonResponse"];
 
             Assert.AreEqual(isOK, response.IsOk);
         }

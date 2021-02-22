@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MetWorkingMatch.Test.Features.Match
+namespace MetWorkingMatch.Test.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,22 +20,22 @@ namespace MetWorkingMatch.Test.Features.Match
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Listar matches efetivados")]
-    public partial class ListarMatchesEfetivadosFeature
+    [NUnit.Framework.DescriptionAttribute("Listar pedidos enviados")]
+    public partial class ListarPedidosEnviadosFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "ListarMatches.feature"
+#line 1 "2_ListarPedidosEnviados.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features/Match", "Listar matches efetivados", "\tLista todos os matches de um usuário", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Listar pedidos enviados", "\tLista os pedidos que um usuário solicitou e estão pendentes de aprovação", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,17 +74,17 @@ namespace MetWorkingMatch.Test.Features.Match
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário com matches efetivados anteriormente")]
-        [NUnit.Framework.TestCaseAttribute("edaff838-1b0e-475c-88a9-7b127ab7c6ff", "True", "a6c907f1-f704-4b34-beca-60c8195cce10", null)]
-        public virtual void UsuarioComMatchesEfetivadosAnteriormente(string idUser, string isOK, string retorno, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário com pedido enviados pendentes")]
+        [NUnit.Framework.TestCaseAttribute("2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", "True", "d3d4b0f4-ee3b-4506-943c-62c88d50e874", null)]
+        public virtual void UsuarioComPedidoEnviadosPendentes(string idUser, string isOK, string retorno, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("idUser", idUser);
             argumentsOfScenario.Add("isOK", isOK);
             argumentsOfScenario.Add("retorno", retorno);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário com matches efetivados anteriormente", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário com pedido enviados pendentes", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -104,30 +104,30 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de matches efetivados", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
-#line hidden
 #line 6
- testRunner.Then(string.Format("o retorno de matches deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+ testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos enviados pendentes", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 7
- testRunner.And(string.Format("a lista de matches deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+ testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line hidden
+#line 8
+ testRunner.And(string.Format("a lista de pedidos enviados deverá ser exibida {0}", retorno), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Usuário sem matches efetivados anteriormente")]
-        [NUnit.Framework.TestCaseAttribute("b0438f34-2f50-4c9d-a440-c45a8b9c45fe", "False", null)]
-        public virtual void UsuarioSemMatchesEfetivadosAnteriormente(string idUser, string isOK, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Usuário sem pedido enviados pendentes")]
+        [NUnit.Framework.TestCaseAttribute("d3d4b0f4-ee3b-4506-943c-62c88d50e874", "False", null)]
+        public virtual void UsuarioSemPedidoEnviadosPendentes(string idUser, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("idUser", idUser);
             argumentsOfScenario.Add("isOK", isOK);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário sem matches efetivados anteriormente", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 12
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário sem pedido enviados pendentes", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -147,11 +147,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 13
- testRunner.When(string.Format("o usuário {0} quiser ver a lista de matches efetivados", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line 15
+ testRunner.When(string.Format("o usuário {0} quiser ver a lista de pedidos enviados pendentes", idUser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 14
- testRunner.Then(string.Format("o retorno de matches deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line 16
+ testRunner.Then(string.Format("o retorno deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             }
             this.ScenarioCleanup();

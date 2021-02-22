@@ -17,7 +17,7 @@ namespace MetWorkingMatch.Test.StepDefinitions.Match
         public ListarMatchesEfetivadosSteps(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
-            this._urlGetMatches = "https://localhost:5001/api/v1/Match/";
+            this._urlGetMatches = "https://localhost:5003/api/v1/Match/";
         }
 
         [When(@"o usuário (.*) quiser ver a lista de matches efetivados")]

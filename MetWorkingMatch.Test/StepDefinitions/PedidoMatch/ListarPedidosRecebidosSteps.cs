@@ -16,7 +16,7 @@ namespace MetWorkingMatch.Test.StepDefinitions.PedidoMatch
         public ListarPedidosRecebidosSteps(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
-            this._urlGetRecebidos = "https://localhost:5001/api/v1/PedidoMatch/recebidos/";
+            this._urlGetRecebidos = "https://localhost:5003/api/v1/PedidoMatch/recebidos/";
         }
 
         [When(@"o usuário (.*) quiser ver a lista de pedidos recebidos")]

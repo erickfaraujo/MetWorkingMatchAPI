@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MetWorkingMatch.Test.Features.Match
+namespace MetWorkingMatch.Test.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -28,14 +28,14 @@ namespace MetWorkingMatch.Test.Features.Match
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "ExcluirMatch.feature"
+#line 1 "9_ExcluirMatch.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features/Match", "Excluir Match", "\tExclui uma conexão (match) entre usuários", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Features", "Excluir Match", "\tExclui uma conexão (match) entre usuários", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,7 +75,8 @@ namespace MetWorkingMatch.Test.Features.Match
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Usuário exclui uma conexão")]
-        [NUnit.Framework.TestCaseAttribute("11ff6448-aeb9-4fd8-aa3f-dda5a3e385ae", "492bb22d-a131-4ee4-85df-5bfe2287a97f", "True", null)]
+        [NUnit.Framework.TestCaseAttribute("2db41729-5cbc-4d81-ac9e-eca7f8edcb1f", "d3d4b0f4-ee3b-4506-943c-62c88d50e874", "True", null)]
+        [NUnit.Framework.TestCaseAttribute("9f62b1aa-76a7-4b77-92ed-eff5824332cb", "d8d7b351-580e-4dd3-8cd1-e89e0daaaaaa", "True", null)]
         public virtual void UsuarioExcluiUmaConexao(string idUser, string idAmigo, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -105,7 +106,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given(string.Format("que o usuário {0} possua uma conexão com outro usuário {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+ testRunner.Given(string.Format("que o usuário {0} possua uma conexão com o {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line hidden
 #line 6
  testRunner.When(string.Format("o usuário {0} quiser excluir a conexão {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -119,7 +120,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Usuário tenta excluir uma conexão que não existe")]
-        [NUnit.Framework.TestCaseAttribute("11ff6448-aeb9-4fd8-aa3f-dda5a3e385ae", "492bb22d-a131-4ee4-85df-5bfe2287a97f", "False", null)]
+        [NUnit.Framework.TestCaseAttribute("0a3c8043-1820-41d0-b9b0-4a3250cc180a", "de12b17f-e9a7-48b2-b910-c92751b8b0c4", "False", null)]
         public virtual void UsuarioTentaExcluirUmaConexaoQueNaoExiste(string idUser, string idAmigo, string isOK, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -128,7 +129,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("IdAmigo", idAmigo);
             argumentsOfScenario.Add("isOK", isOK);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Usuário tenta excluir uma conexão que não existe", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 13
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -148,11 +149,8 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
- testRunner.Given(string.Format("que o usuário {0} não possua uma conexão com o outro usuário informado {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
-#line hidden
 #line 15
- testRunner.When(string.Format("o usuário {0} quiser excluir a conexão {1}", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+ testRunner.When(string.Format("o usuário {0} quiser excluir a conexão {1} que não existe", idUser, idAmigo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 16
  testRunner.Then(string.Format("o retorno da exclusão deve ser {0}", isOK), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
