@@ -24,6 +24,7 @@ namespace MetWorkingMatch.Presentation
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://*:5002");
                 });
     }
 }
