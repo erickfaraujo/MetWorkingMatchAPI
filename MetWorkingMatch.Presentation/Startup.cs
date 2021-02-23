@@ -25,7 +25,7 @@ namespace MetWorkingMatch.Presentation
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetWorkingUserAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetWorkingMatchAPI", Version = "v1" });
             });
         }
 
