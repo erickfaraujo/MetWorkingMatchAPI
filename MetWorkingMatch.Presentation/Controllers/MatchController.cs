@@ -28,6 +28,15 @@ namespace MetWorkingMatch.Presentation.Controllers
             return await ResponseBase(result);
         }
 
+        [HttpGet("showTimeline/{id}/{idAmigo}")]
+        public async Task<IActionResult> ShowTimeline(Guid id, Guid idAmigo)
+        {
+            var query = new ShowTimelineQuery(id, idAmigo);
+            var result = await Mediator.Send(query);
+
+            return await ResponseBase(result);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete (Application.Contracts.Match.DeleteMatchRequest deleteMatchRequest)
         {
