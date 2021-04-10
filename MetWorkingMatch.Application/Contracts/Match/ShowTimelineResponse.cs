@@ -6,6 +6,5 @@ namespace MetWorkingMatch.Application.Contracts.Match
     public class ShowTimelineResponse
     {
         public Guid IdAmigo { get; set; }
-        public bool Show { get; set; }
     }
 }

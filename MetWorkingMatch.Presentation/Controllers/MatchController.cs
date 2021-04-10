@@ -34,14 +34,19 @@ namespace MetWorkingMatch.Presentation.Controllers
         [HttpPost("showTimeline/{id}")]
         public async Task<IActionResult> ShowTimeline(Guid id, [FromBody] Collection<Guid> idAmigo)
         {
-            List<ShowTimelineResponse> showTimelineResponse = new ();
+            List<ShowTimelineResponse> showTimelineResponse = new();
             var response = new BaseResponse<List<ShowTimelineResponse>>();
 
             foreach (var a in idAmigo)
             {
                 var query = new ShowTimelineQuery(id, a);
                 var result = await Mediator.Send(query);
-                showTimelineResponse.Add(result.Data);
+                Guid guid = new("00000000-0000-0000-0000-000000000000");
+
+                if (!result.Data.IdAmigo.Equals(guid))
+                {
+                    showTimelineResponse.Add(result.Data);
+                }
             }
 
             response.SetIsOk(showTimelineResponse);
@@ -50,7 +55,7 @@ namespace MetWorkingMatch.Presentation.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete (Application.Contracts.Match.DeleteMatchRequest deleteMatchRequest)
+        public async Task<IActionResult> Delete(Application.Contracts.Match.DeleteMatchRequest deleteMatchRequest)
         {
             var command = new DeleteMatchCommand(deleteMatchRequest);
             var result = await Mediator.Send(command);

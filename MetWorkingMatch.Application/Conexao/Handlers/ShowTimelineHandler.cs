@@ -23,7 +23,7 @@ namespace MetWorkingMatch.Application.Conexao.Handlers
             var response = new BaseResponse<ShowTimelineResponse>();
             bool isMatch = false;
             bool isPendingRequest = false;
-            ShowTimelineResponse showTimelineResponse = new ShowTimelineResponse { Show = false, IdAmigo = request.IdAmigo };
+            ShowTimelineResponse showTimelineResponse = new ();
 
             // Busca se os usuários são amigos
             var matchesQuery = _dbContext.Matches.Where(m => m.IdUser == request.UserId);
@@ -54,7 +54,7 @@ namespace MetWorkingMatch.Application.Conexao.Handlers
             if (PedidoPendenteUser.Any() || PedidoPendenteAmigo.Any()) isPendingRequest = true;
 
             // Se não houver match nem pedido pendente então é exibido na timeline
-            if (isMatch == false && isPendingRequest == false) showTimelineResponse.Show = true;
+            if (isMatch == false && isPendingRequest == false) showTimelineResponse.IdAmigo = request.IdAmigo;
 
             response.SetIsOk(showTimelineResponse);
 
