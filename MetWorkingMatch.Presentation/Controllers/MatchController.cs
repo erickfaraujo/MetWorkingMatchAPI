@@ -5,7 +5,6 @@ using MetWorkingMatch.Application.Contracts.Match;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace MetWorkingMatch.Presentation.Controllers
@@ -32,14 +31,14 @@ namespace MetWorkingMatch.Presentation.Controllers
         }
 
         [HttpPost("showTimeline/{id}")]
-        public async Task<IActionResult> ShowTimeline(Guid id, [FromBody] Collection<Guid> idAmigo)
+        public async Task<IActionResult> ShowTimeline(Guid id, [FromBody] ShowTimelineRequest idAmigo)
         {
             List<ShowTimelineResponse> showTimelineResponse = new();
             var response = new BaseResponse<List<ShowTimelineResponse>>();
 
-            foreach (var a in idAmigo)
+            foreach (var a in idAmigo.idAmigos)
             {
-                var query = new ShowTimelineQuery(id, a);
+                var query = new ShowTimelineQuery(id, a.IdAmigo);
                 var result = await Mediator.Send(query);
                 Guid guid = new("00000000-0000-0000-0000-000000000000");
 
