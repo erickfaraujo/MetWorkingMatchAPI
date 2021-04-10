@@ -23,7 +23,7 @@ namespace MetWorkingMatch.Application.Conexao.Handlers
             var response = new BaseResponse<ShowTimelineResponse>();
             bool isMatch = false;
             bool isPendingRequest = false;
-            ShowTimelineResponse showTimelineResponse = new ShowTimelineResponse { Show = false };
+            ShowTimelineResponse showTimelineResponse = new ShowTimelineResponse { Show = false, IdAmigo = request.IdAmigo };
 
             // Busca se os usuários são amigos
             var matchesQuery = _dbContext.Matches.Where(m => m.IdUser == request.UserId);

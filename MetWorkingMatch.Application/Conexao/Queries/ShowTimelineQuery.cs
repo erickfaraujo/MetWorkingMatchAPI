@@ -2,6 +2,7 @@
 using MetWorkingMatch.Application.Contracts;
 using MetWorkingMatch.Application.Contracts.Match;
 using System;
+using System.Collections.Generic;
 
 namespace MetWorkingMatch.Application.Conexao.Queries
 {

@@ -1,8 +1,11 @@
 ﻿using MetWorkingMatch.Application.Conexao.Commands;
 using MetWorkingMatch.Application.Conexao.Queries;
+using MetWorkingMatch.Application.Contracts;
 using MetWorkingMatch.Application.Contracts.Match;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace MetWorkingMatch.Presentation.Controllers
@@ -28,13 +31,22 @@ namespace MetWorkingMatch.Presentation.Controllers
             return await ResponseBase(result);
         }
 
-        [HttpGet("showTimeline/{id}/{idAmigo}")]
-        public async Task<IActionResult> ShowTimeline(Guid id, Guid idAmigo)
+        [HttpPost("showTimeline/{id}")]
+        public async Task<IActionResult> ShowTimeline(Guid id, [FromBody] Collection<Guid> idAmigo)
         {
-            var query = new ShowTimelineQuery(id, idAmigo);
-            var result = await Mediator.Send(query);
+            List<ShowTimelineResponse> showTimelineResponse = new ();
+            var response = new BaseResponse<List<ShowTimelineResponse>>();
 
-            return await ResponseBase(result);
+            foreach (var a in idAmigo)
+            {
+                var query = new ShowTimelineQuery(id, a);
+                var result = await Mediator.Send(query);
+                showTimelineResponse.Add(result.Data);
+            }
+
+            response.SetIsOk(showTimelineResponse);
+
+            return await ResponseBase(response);
         }
 
         [HttpDelete]
