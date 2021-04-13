@@ -43,19 +43,6 @@ namespace MetWorkingMatch.Application.Conexao.Handlers
                 _dbContext.Matches.Remove(matchLista[0]);
                 _dbContext.Matches.Remove(matchAmigoLista[0]);
 
-                var pedidoMatch = _dbContext.PedidosMatch
-                                        .Where(p => p.IdUserSolicitante == request.DeleteMatchRequest.IdUser)
-                                        .Where(p => p.IdUserAprovador == request.DeleteMatchRequest.IdUserAmigo);
-
-                if (!pedidoMatch.Any())
-                {
-                    pedidoMatch = _dbContext.PedidosMatch
-                                        .Where(p => p.IdUserAprovador == request.DeleteMatchRequest.IdUser)
-                                        .Where(p => p.IdUserSolicitante == request.DeleteMatchRequest.IdUserAmigo);
-                }
-
-                _dbContext.PedidosMatch.Remove(pedidoMatch.ToList()[0]);
-
                 await _dbContext.SaveChangesAsync(cancellationToken);
 
                 response.SetIsOk(null);

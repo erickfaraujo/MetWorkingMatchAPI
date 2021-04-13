@@ -66,6 +66,8 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
 
                         await _dbContext.Matches.AddAsync(match);
                         await _dbContext.Matches.AddAsync(matchAmigo);
+
+                        _dbContext.PedidosMatch.Remove(pedidoLista[0]);
                     }
 
                     await _dbContext.SaveChangesAsync(cancellationToken);
