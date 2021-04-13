@@ -14,8 +14,6 @@ namespace MetWorkingMatch.Infra.Persistence
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            this.Database.EnsureCreated();
-            this.Database.MigrateAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

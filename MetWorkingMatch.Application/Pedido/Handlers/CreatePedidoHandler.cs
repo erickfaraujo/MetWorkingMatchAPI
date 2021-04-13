@@ -31,12 +31,12 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
             pedido.DataSolicitacao = System.DateTime.Now;
             pedido.IdStatusSolicitacao = await _dbContext.StatusPedido.FindAsync(1);
 
-            var PedidoPendente = _dbContext.PedidosMatch
+            var pedidoPendente = _dbContext.PedidosMatch
                                     .Where(p => p.IdUserAprovador == request.PedidoRequest.IdUserAprovador)
                                     .Where(p => p.IdUserSolicitante == request.PedidoRequest.IdUserSolicitante)
                                     .Where(p => p.IdStatusSolicitacao.Id == 1);
 
-            if (PedidoPendente.Any())
+            if (pedidoPendente.Any())
             {
                 response.SetValidationErrors(new[] { "Já existe uma conexão ou pedido de match pendente para esse usuários" });
             }
@@ -47,7 +47,7 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
-            await _httpClient.DeleteAsync($"http://metworkinggeoapi:5001/{request.PedidoRequest.IdUserAprovador}/{request.PedidoRequest.IdUserSolicitante}", cancellationToken);
+            _httpClient.DeleteAsync($"http://metworkinggeoapi:5001/{request.PedidoRequest.IdUserAprovador}/{request.PedidoRequest.IdUserSolicitante}", cancellationToken);
             response.SetIsOk(null);
             return response;
         }
