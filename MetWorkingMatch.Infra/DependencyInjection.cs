@@ -12,7 +12,11 @@ namespace MetWorkingMatch.Infra
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseMySql(configuration["METWORKING_CONNECTION"],
-                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+                        b =>
+                        {
+                            b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                            b.EnableRetryOnFailure();
+                        }), ServiceLifetime.Transient);
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
