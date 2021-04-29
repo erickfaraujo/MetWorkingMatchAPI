@@ -23,6 +23,7 @@ namespace MetWorkingMatch.Presentation
             services.AddInfrastructure(Configuration);
             services.addAplication();
             services.AddControllers();
+            services.AddHealthChecks();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetWorkingMatchAPI", Version = "v1" });
@@ -46,6 +47,7 @@ namespace MetWorkingMatch.Presentation
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("health");
             });
         }
     }

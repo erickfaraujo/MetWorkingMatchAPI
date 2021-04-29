@@ -47,7 +47,7 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
-            _httpClient.DeleteAsync($"http://metworkinggeoapi:5001/{request.PedidoRequest.IdUserAprovador}/{request.PedidoRequest.IdUserSolicitante}", cancellationToken);
+            _httpClient.DeleteAsync($"http://metworkinggeo:5001/{request.PedidoRequest.IdUserAprovador}/{request.PedidoRequest.IdUserSolicitante}", cancellationToken);
             response.SetIsOk(null);
             return response;
         }

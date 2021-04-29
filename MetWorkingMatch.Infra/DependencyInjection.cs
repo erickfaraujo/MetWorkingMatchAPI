@@ -11,7 +11,7 @@ namespace MetWorkingMatch.Infra
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseMySql(configuration["METWORKING_CONNECTION"],
+                    options.UseMySql(configuration["ConnectionString"],
                         b =>
                         {
                             b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
