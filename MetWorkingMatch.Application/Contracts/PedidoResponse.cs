@@ -1,4 +1,5 @@
 ﻿using System;
+using MetWorkingMatch.Domain.Models;
 
 namespace MetWorkingMatch.Application.Contracts
 {
@@ -6,5 +7,6 @@ namespace MetWorkingMatch.Application.Contracts
     {
         public Guid IdUser { get; set; }
         public DateTime DataSolicitacao { get; set; }
+        public User User { get; set; }
     }
 }

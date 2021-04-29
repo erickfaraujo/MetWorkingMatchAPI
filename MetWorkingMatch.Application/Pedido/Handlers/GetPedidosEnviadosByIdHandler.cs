@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using MetWorkingMatch.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
@@ -15,53 +16,44 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GetPedidosEnviadosByIdHandler(IApplicationDbContext context, IMapper mapper)
+        private readonly IUserService _userService;
+
+        public GetPedidosEnviadosByIdHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _dbContext = context;
             _mapper = mapper;
+            _userService = userService;
         }
         public async Task<BaseResponse<PedidosMatchResponse>> Handle(GetPedidosEnviadosByIdQuery request, CancellationToken cancellationToken)
         {
-            var response = new BaseResponse<PedidosMatchResponse>();
-
-            PedidosMatchResponse pedidosMatchResponse = new PedidosMatchResponse
-            {
-                IdUser = request.UserId
-            };
-
-            List<PedidoResponse> pedidosResponse = new List<PedidoResponse>();
-
             var pedidos = _dbContext.PedidosMatch
                             .Include(p => p.IdStatusSolicitacao)
-                            .Where(p => p.IdUserSolicitante == request.UserId);
+                            .Where(p => p.IdUserSolicitante == request.UserId && p.IdStatusSolicitacao.Id == 1);
 
-            if (!pedidos.Any())
+            var pedidosEnviados = pedidos.ToList();
+            
+            var response = new BaseResponse<PedidosMatchResponse>();
+
+            if (!pedidosEnviados.Any())
             {
                 response.SetValidationErrors(new[] { "Não existem pedidos pendentes para o usuário informado" });
             }
             else
             {
-                var pedidosArray = pedidos.ToArray();
-                foreach (var p in pedidos)
+                var pedidosMatchResponse = new PedidosMatchResponse
                 {
-                    if (p.IdStatusSolicitacao.Id == 1)
-                    {
-                        PedidoResponse pedido = new PedidoResponse();
-                        pedido.IdUser = p.IdUserAprovador;
-                        pedido.DataSolicitacao = p.DataSolicitacao;
-                        pedidosResponse.Add(pedido);
-                    }
-                }
-
-                if (!pedidosResponse.Any())
+                    IdUser = request.UserId
+                };
+                var pedidosResponse = new List<PedidoResponse>();
+                
+                foreach (var p in pedidosEnviados)
                 {
-                    response.SetValidationErrors(new[] { "Não existem pedidos pendentes para o usuário informado" });
+                    var user = await _userService.GetUser(p.IdUserAprovador);
+                    var pedido = new PedidoResponse {IdUser = p.IdUserAprovador, DataSolicitacao = p.DataSolicitacao, User = user};
+                    pedidosResponse.Add(pedido);
                 }
-                else
-                {
-                    pedidosMatchResponse.Pedidos = pedidosResponse;
-                    response.SetIsOk(pedidosMatchResponse);
-                }
+                pedidosMatchResponse.Pedidos = pedidosResponse;
+                response.SetIsOk(pedidosMatchResponse);
             }
 
             return response;

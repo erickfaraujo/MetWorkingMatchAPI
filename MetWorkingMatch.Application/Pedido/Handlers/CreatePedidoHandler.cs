@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using MetWorkingMatch.Domain.Interfaces;
 
 namespace MetWorkingMatch.Application.Pedido.Handlers
 {
@@ -15,13 +16,13 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly HttpClient _httpClient;
+        private readonly IGeoService _geoService;
 
-        public CreatePedidoHandler(IApplicationDbContext dbContext, IMapper mapper, HttpClient httpClient)
+        public CreatePedidoHandler(IApplicationDbContext dbContext, IMapper mapper, IGeoService geoService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _httpClient = httpClient;
+            _geoService = geoService;
         }
         public async Task<BaseResponse<PedidoResponse>> Handle(CreatePedidoCommand request, CancellationToken cancellationToken)
         {
@@ -47,7 +48,8 @@ namespace MetWorkingMatch.Application.Pedido.Handlers
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
-            _httpClient.DeleteAsync($"http://metworkinggeo:5001/{request.PedidoRequest.IdUserAprovador}/{request.PedidoRequest.IdUserSolicitante}", cancellationToken);
+            _geoService.DeleteFromTimeLine(request.PedidoRequest.IdUserAprovador,
+                request.PedidoRequest.IdUserSolicitante);
             response.SetIsOk(null);
             return response;
         }
