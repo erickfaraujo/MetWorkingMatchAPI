@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetWorkingMatch.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210212022231_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210717223138_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,18 +51,18 @@ namespace MetWorkingMatch.Infra.Migrations
                     b.Property<DateTime>("DataSolicitacao")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("IdStatusSolicitacaoId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("IdUserAprovador")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("IdUserSolicitante")
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("idStatusSolicitacaoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("idStatusSolicitacaoId");
+                    b.HasIndex("IdStatusSolicitacaoId");
 
                     b.ToTable("PedidosMatch");
                 });
@@ -73,7 +73,7 @@ namespace MetWorkingMatch.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("descricaoStatus")
+                    b.Property<string>("DescricaoStatus")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -84,27 +84,27 @@ namespace MetWorkingMatch.Infra.Migrations
                         new
                         {
                             Id = 1,
-                            descricaoStatus = "Pendente"
+                            DescricaoStatus = "Pendente"
                         },
                         new
                         {
                             Id = 2,
-                            descricaoStatus = "Aceito"
+                            DescricaoStatus = "Aceito"
                         },
                         new
                         {
                             Id = 3,
-                            descricaoStatus = "Recusado"
+                            DescricaoStatus = "Recusado"
                         });
                 });
 
             modelBuilder.Entity("MetWorkingMatch.Domain.Entities.PedidoMatch", b =>
                 {
-                    b.HasOne("MetWorkingMatch.Domain.Entities.StatusPedido", "idStatusSolicitacao")
+                    b.HasOne("MetWorkingMatch.Domain.Entities.StatusPedido", "IdStatusSolicitacao")
                         .WithMany()
-                        .HasForeignKey("idStatusSolicitacaoId");
+                        .HasForeignKey("IdStatusSolicitacaoId");
 
-                    b.Navigation("idStatusSolicitacao");
+                    b.Navigation("IdStatusSolicitacao");
                 });
 #pragma warning restore 612, 618
         }
